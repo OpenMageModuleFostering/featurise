@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<config>
+    <tabs>
+        <tour_tab module="tour" translate="label">
+            <label>Feature Tour Config</label>
+            <sort_order>100</sort_order>
+        </tour_tab>
+    </tabs>
+    <sections>
+        <tourconfig module="tour" translate="label">
+            <label>Feature Tour Configuration</label>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>tour_tab</tab>
+            <groups>
+                <tour_group translate="label">
+                    <label>Feature Tour Config</label>
+                    <!--<comment>This is example of custom configuration.</comment>-->
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<ft_enabled translate="label comment">
+							<label>Is Enabled</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>0</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Enable/disable Feature Tour on frontend</comment>
+						</ft_enabled>
+						<ft_load_jq translate="label comment">
+							<label>Load Explicit jQuery</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Set to No if your site is already using jQuery. (jQuery 1.8 or higher is recommended)</comment>
+						</ft_load_jq>
+						<ft_repeat translate="label comment">
+							<label>Repeat</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Number of times the Feature Tour is shown to a user</comment>
+						</ft_repeat>
+						<ft_text translate="label comment">
+							<label>Start Button Text</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Text to be displayed on Start button</comment>
+						</ft_text>
+						<ft_expire translate="label comment">
+							<label>Expire On</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>tour/adminhtml_system_config_date</frontend_model>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment>Set the expiry date for the Feature Tour</comment>
+						</ft_expire>
+					</fields>
+                </tour_group>
+            </groups>
+        </tourconfig>
+    </sections>
+</config>

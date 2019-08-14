@@ -1,0 +1,165 @@
+<?php $tours = $this->getTours(); ?>
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?=$this->__('New Feature Tour')?></h3></td>
+            <td class="a-right">
+                <button onclick="clearForm();editForm.submit()" class="scalable save" type="button"><span>Save Feature Tour</span></button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="<?=$this->getUrl('*/*/post')?>">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+		<div class="entry-edit-head">
+			<h4 class="icon-head head-edit-form fieldset-legend">Tour Items</h4>
+		</div>
+        <fieldset id="my-fieldset">
+			<div class="grid">
+				<table cellspacing="0" class="border" id="tour_tbl">
+					<tbody id="t_body">
+						<tr class="headings">
+							<th class="label"><?=$this->__('Selector')?> <span class="required">*</span></th>
+							<th class="label" style="width:150px;"><?=$this->__('Position')?> <span class="required">*</span></th>
+							<th class="label" style="width:250px;"><?=$this->__('Content')?> <span class="required">*</span></th>
+							<th class="label" style="width:100px;"><?=$this->__('Delay')?> <span class="required">*</span></th>
+							<th class="label" style="width:100px;"><?=$this->__('Expose')?> <span class="required">*</span></th>
+							<th class="label" style="width:100px;"><?=$this->__('Action')?></th>
+						</tr>
+						<tr>
+							<td><small><em>The CSS class or ID of the element to be highlighted. e.g .product-image, #logo_button.</em><small></td>
+							<td><small><em>Set the direction where popup is to be shown.</em><small></td>
+							<td><small><em>The content to be shown in popup.</em><small></td>
+							<td><small><em>Duration (in milliseconds) for which the element is highlighted. E.g 2000 for 2 seconds.</em><small></td>
+							<td><small><em>Select 'Yes' if you want the element to be exposed.</em><small></td>
+							<td>&nbsp;</td>
+						</tr>
+						<?php if (is_array($tours) && count($tours)): ?>
+							<?php foreach ($tours as $tour): ?>
+								<tr id="row_<?php echo $tour['tour_id'] ?>">
+									<td class="input-ele"><input class="input-text required-entry" name="selector[]" id="selector_<?php echo $tour['tour_id'] ?>" value="<?php echo $tour['selector'] ?>" /></td>
+									<td class="input-ele">
+										<select name="position[]" id="position_<?php echo $tour['tour_id'] ?>">
+											<option value="e" <?php if($tour['position']=='e') {echo "selected";} ?>>East</option>
+											<option value="w" <?php if($tour['position']=='w') {echo "selected";} ?>>West</option>
+											<option value="n" <?php if($tour['position']=='n') {echo "selected";} ?>>North</option>
+											<option value="s" <?php if($tour['position']=='s') {echo "selected";} ?>>South</option>
+										</select>
+									</td>
+									<td class="input-ele">
+										<textarea class="input-text required-entry" name="content[]" rows="3" cols="35" id="content_<?php echo $tour['tour_id'] ?>"><?php echo $tour['content'] ?></textarea>
+									</td>
+									<td class="input-ele"><input class="input-text required-entry" name="delay[]" size="1" id="delay_<?php echo $tour['tour_id'] ?>" value="<?php echo $tour['delay'] ?>" /></td>
+									<td class="input-ele">
+										<select name="expose[]" id="expose_<?php echo $tour['tour_id'] ?>">
+											<option value="y" <?php if($tour['expose']=='1') {echo "selected";} ?>>Yes</option>
+											<option value="n" <?php if($tour['expose']=='0') {echo "selected";} ?>>No</option>
+										</select>
+									</td>
+									<td><button class="scalable delete" type="button" onclick="deleteRow(this)">Remove</button></td>
+								</tr>
+							<?php endforeach; ?>
+						<?php endif; ?>
+
+						<?php if (is_array($tours) && count($tours)): ?>
+							<?php $display = 'none' ?>
+						<?php else: ?>
+							<?php $display = '' ?>
+						<?php endif; ?>
+						<tr id="base_row" style="display:<?php echo $display ?>;">
+							<td class="input-ele"><input class="input-text required-entry" name="selector[]" id="selector_0" /></td>
+							<td class="input-ele">
+								<select name="position[]" id="position_0">
+									<option value="e">East</option>
+									<option value="w">West</option>
+									<option value="n">North</option>
+									<option value="s">South</option>
+								</select>
+							</td>
+							<td class="input-ele">
+								<textarea class="input-text required-entry" name="content[]" rows="3" cols="35" id="content_0"></textarea>
+							</td>
+							<td class="input-ele"><input class="input-text required-entry" name="delay[]" size="1" id="delay_0" /></td>
+							<td class="input-ele">
+								<select name="expose[]" id="expose_0">
+									<option value="y">Yes</option>
+									<option value="n">No</option>
+								</select>
+							</td>
+							<td><button class="scalable delete" type="button" onclick="deleteRow(this)">Remove</button></td>
+						</tr>
+					</tbody>
+					<tfoot>
+						<tr>
+							<td class="label" colspan="5"></td>
+							<td class="input-ele a-right"><button class="scalable delete" type="button" id="add_tour_btn">Add Feature</button></td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+        </fieldset>
+    </form>
+</div>
+<script type="text/javascript">
+    var editForm = new varienForm('edit_form');
+	var r_count = parseInt('<?php echo count($tours) ?>', 10);
+
+	var add_tour_btn = document.getElementById("add_tour_btn");
+	add_tour_btn.addEventListener('click', function() {
+		cloneRow();
+		return false;
+	}, false);
+
+	function cloneRow() {
+		var row = document.getElementById("base_row"); // find row to copy
+		var t_body = document.getElementById("t_body"); // find table to append to
+		var clone = row.cloneNode(true); // copy children too
+		clone.style.display = "";
+		t_body.appendChild(clone); // add new row to end of tbody
+		var rowCount = document.getElementById('tour_tbl').rows.length;
+		rowCount = parseInt(rowCount) - 2;
+		r_count = parseInt(r_count) + 1;
+
+		var tRow = document.getElementById("tour_tbl").rows[rowCount];
+		for (var j = 0, col; col = tRow.cells[j]; j++) {
+			var inp = col.getElementsByTagName("input");
+			for (var i = 0; i < inp.length; i++) {
+				var name = inp[i].getAttribute('name').split("[]");
+				inp[i].setAttribute('id', name[0]+"_"+r_count);
+			}
+			var select = col.getElementsByTagName("select");
+			for (var i = 0; i < select.length; i++) {
+				var name = select[i].getAttribute('name').split("[]");
+				select[i].setAttribute('id', name[0]+"_"+r_count);
+			}
+			var textarea = col.getElementsByTagName("textarea");
+			for (var i = 0; i < textarea.length; i++) {
+				var name = textarea[i].getAttribute('name').split("[]");
+				textarea[i].setAttribute('id', name[0]+"_"+r_count);
+			}
+		}  
+	}
+
+	function deleteRow(o) {
+		var p=o.parentNode.parentNode;
+		var ID = p.getAttribute('id');
+		p.parentNode.removeChild(p);
+	}
+
+	function clearForm() {
+		if (parseInt('<?php echo count($tours) ?>', 10) <= 0) {
+			return false;
+		}
+		var row = document.getElementById("base_row");
+		if (!row) {
+			return false;
+		}
+		var table = row.parentNode;
+		while ( table && table.tagName != 'TABLE' )
+			table = table.parentNode;
+		if ( !table )
+			return;
+		table.deleteRow(row.rowIndex);
+	}
+</script>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <tour_adminhtml_tour_index>
+		<reference name="head"></reference>
+        <update handle="arvtour_tour_index"/>
+        <reference name="content">
+            <block type="tour/adminhtml_tour" name="myform" template="tour/tourform.phtml"/>
+        </reference>
+    </tour_adminhtml_tour_index>
+</layout>

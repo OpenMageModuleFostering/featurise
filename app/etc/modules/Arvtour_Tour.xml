@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Arvtour_Tour>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Arvtour_Tour>
+    </modules>
+</config> 

@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Featurise",
+    "type": "magento-module",
+    "license": "Open-Software-License-(OSL)",
+    "homepage": "",
+    "description": "Feature Tour extension allows you to highlight new features added on your store through a beautiful feature tour playback.",
+    "authors": [
+    {
+        "name": "Arvind Bhardwaj",
+        "email": "bhardwajsonheight@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
