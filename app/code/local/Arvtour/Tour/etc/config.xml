@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Arvtour_Tour>
-            <version>0.1.0</version>
+            <version>0.1.1</version>
         </Arvtour_Tour>
     </modules>
     <frontend>
