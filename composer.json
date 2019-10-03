@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Featurise",
+    "name": "openmage-module-fostering\/featurise",
     "type": "magento-module",
-    "license": "Open-Software-License-(OSL)",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Feature Tour extension allows you to highlight new features added on your store through a beautiful feature tour playback.",
     "authors": [
